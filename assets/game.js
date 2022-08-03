@@ -175,20 +175,53 @@ else {
 }
     // function to end the entire game
     var endGame = function() {
+      window.alert("The game has now ended. Let's see how you did!")
+      // check localStorage for high score, if it's not there, use 0
+      var highScore = localStorage.getItem ("highScore");
+      if(highScore === null){
+        highScore = 0;
+      }
+      //Above code could also be wrote as highScore = highScore || 0;
+      //compare player's score to stored highscore
+      var playerScore = playerInfo.money;
+      if(playerScore < highScore){
+        window.alert("You did not beat the High Score. The current High Score is" + highScore)
+      }
+      else{
+        localStorage.setItem("highScore", playerScore);
+        localStorage.setItem("name", playerInfo.name );
+        alert("Congrats" + playerInfo.name + "you beat the high score!" );
+      }
+      //ask player if they'd like to play again
+      var playAgainConfirm = window.confirm("Would you like to play again?");
+
+      if(playAgainConfirm){
+        startGame();
+      }
+      else {
+        window.alert("Thank you for playing Robot Gladiators! Come back soon!1");
+      }
+      };
+
+
+
+
+      //Old Code
       //if player is still alive, player wins!
-      if (playerInfo.health > 0) {
-       window.alert("Great job, you've survived the game! You now have a score of " + playerInfo.money + ".");
-     }
-     else {
-       window.alert("You've lost your robot in battle.");
+     // if (playerInfo.health > 0) {
+      // window.alert("Great job, you've survived the game! You now have a score of " + playerInfo.money + ".");
+     //}
+     //else {
+       //window.alert("You've lost your robot in battle.");
+
        //ask player if they'd like to play again
-       var PlayAgainConfirm = window.confirm("Would you like to play again?");
-       if (PlayAgainConfirm) {
+       //var PlayAgainConfirm = window.confirm("Would you like to play again?");
+       //if (PlayAgainConfirm) {
          //restart the game
-         startGame();
-       }else{window.alert("Thank you for playing Robot Gladiators! Come back soon!");}
-       }
-     }
+         //startGame();
+      // }else{window.alert("Thank you for playing Robot Gladiators! Come back soon!");}
+     //  }
+     
 
 //Shop function Begin
 var shop = function(){
@@ -242,9 +275,6 @@ var randomNumber = function(min, max) {
 var getPlayerName= function(){
   var name = "";
 
-  //**********
-  //ADD LOOP HERE WITH PROMPT AND CONDITION
-  //********** 
 while (name === "" || name === null){
   name = prompt("What is your robot's name?");
 }
